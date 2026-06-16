@@ -1,0 +1,52 @@
+/* Hallmark · portable design tokens · Toolbox
+ * Workbench · modern-minimal (dark) · amber ~75deg
+ */
+
+:root {
+  /* ---- colour (OKLCH; warm graphite paper, single amber anchor) ---- */
+  --color-paper:        oklch(0.17 0.008 75);
+  --color-surface:      oklch(0.21 0.008 75);
+  --color-surface-2:    oklch(0.25 0.009 75);
+  --color-border:       oklch(0.30 0.010 75);
+  --color-border-strong:oklch(0.40 0.012 75);
+  --color-ink:          oklch(0.93 0.006 80);
+  --color-muted:        oklch(0.72 0.011 78);
+  --color-faint:        oklch(0.56 0.011 78);
+  --color-accent:       oklch(0.80 0.118 78);
+  --color-accent-hover: oklch(0.86 0.125 80);
+  --color-accent-ink:   oklch(0.22 0.030 70);
+  --color-focus:        oklch(0.82 0.120 78);
+  /* functional status hues — signal, not decoration */
+  --color-up:           oklch(0.80 0.150 155);
+  --color-down:         oklch(0.68 0.180 35);
+  --color-unknown:      oklch(0.60 0.010 78);
+
+  /* ---- type ---- */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --text-xs:   0.6875rem;
+  --text-sm:   0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg:   1.0625rem;
+  --text-xl:   1.375rem;
+
+  /* ---- 4pt spacing scale ---- */
+  --space-2xs: 4px;
+  --space-xs:  8px;
+  --space-sm:  12px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+
+  /* ---- motion ---- */
+  --dur-fast: 120ms;
+  --dur-mid:  200ms;
+  --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --ease-in:  cubic-bezier(0.4, 0, 1, 1);
+
+  /* ---- shape ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --rule: 1px solid var(--color-border);
+}

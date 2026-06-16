@@ -1,0 +1,17 @@
+{
+  "name": "toolbox",
+  "version": "1.0.0",
+  "description": "Lightweight Docker-ready hub linking to self-hosted tools behind Authentik.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

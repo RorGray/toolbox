@@ -1,0 +1,26 @@
+{
+  "tools": [
+    {
+      "id": "seedpdf0000000001",
+      "name": "PDF Editor",
+      "url": "https://pdf.tools.example.com",
+      "description": "Merge, split, sign and convert PDF documents.",
+      "category": "Documents",
+      "tags": ["pdf", "convert", "sign"],
+      "iconFile": null,
+      "health": { "status": "unknown", "httpStatus": null, "checkedAt": null },
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "seedimg00000000001",
+      "name": "Image Editor",
+      "url": "https://img.tools.example.com",
+      "description": "Crop, resize and compress images in the browser.",
+      "category": "Media",
+      "tags": ["image", "resize", "compress"],
+      "iconFile": null,
+      "health": { "status": "unknown", "httpStatus": null, "checkedAt": null },
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    }
+  ]
+}

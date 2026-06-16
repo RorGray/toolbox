@@ -1,0 +1,46 @@
+services:
+  toolbox:
+    build: .
+    # Or use a prebuilt image once you publish one:
+    # image: ghcr.io/you/toolbox:latest
+    container_name: toolbox
+    restart: unless-stopped
+    environment:
+      # --- Authentik forward-auth integration ---
+      # Group allowed to add/edit/delete. Leave empty to let any authenticated
+      # user edit. Anyone past the proxy can always view.
+      ADMIN_GROUP: "toolbox-admins"
+      # Reject requests that arrive without the Authentik user header (i.e.
+      # direct hits that bypass the proxy on the docker network).
+      REQUIRE_AUTH_HEADER: "true"
+      # Override these only if you renamed the headers in the Authentik provider.
+      # AUTH_HEADER_USER: "x-authentik-username"
+      # AUTH_HEADER_GROUPS: "x-authentik-groups"
+      # --- health pinger ---
+      HEALTH_INTERVAL_MS: "60000"
+      HEALTH_TIMEOUT_MS: "5000"
+    volumes:
+      - toolbox-data:/data
+    # No host port published: traffic should arrive only via your reverse
+    # proxy / Authentik outpost on the shared network. Expose internally:
+    expose:
+      - "3000"
+    networks:
+      - proxy
+
+    # --- Example Traefik labels (uncomment + adapt if you use Traefik) ---
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.toolbox.rule=Host(`tools.example.com`)"
+    #   - "traefik.http.routers.toolbox.entrypoints=websecure"
+    #   - "traefik.http.routers.toolbox.tls.certresolver=le"
+    #   # attach the Authentik forward-auth middleware you defined elsewhere:
+    #   - "traefik.http.routers.toolbox.middlewares=authentik@docker"
+    #   - "traefik.http.services.toolbox.loadbalancer.server.port=3000"
+
+volumes:
+  toolbox-data:
+
+networks:
+  proxy:
+    external: true
