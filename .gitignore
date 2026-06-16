@@ -3,3 +3,5 @@
 /.env
 /icons/*
 /data/*.tmp*
+/.claude/*
+/CLAUDE.md
