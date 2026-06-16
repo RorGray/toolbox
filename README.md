@@ -4,26 +4,41 @@ A lightweight, self-hosted dashboard that links to all your Docker-based tools �
 organised by category, with live health checks and browser-based editing. Designed
 to sit behind an [Authentik](https://goauthentik.io) forward-auth proxy.
 
-<!-- screenshot: dashboard overview -->
-![Dashboard overview](docs/images/dashboard.png)
+![Dashboard](docs/images/dashboard-modern-admin.png)
+
+> **Admin view shown above.** The "Add tool" and "Re-check" buttons are only
+> rendered for users who are members of the configured `ADMIN_GROUP`. Everyone
+> else authenticated through the proxy sees the same dashboard but with no edit
+> controls at all — the buttons are absent from the DOM, not just disabled.
 
 ## Features
 
 - **Card grid grouped by category**, with live status dots and per-tool tags.
-- **Edit from the browser** — add, edit and delete entries without a redeploy.
+- **Role-aware UI** — edit controls ("Add tool", "Re-check", per-card edit/delete)
+  are only rendered for Authentik users in the admin group; read-only users see a
+  clean view with no edit affordances.
+- **Edit from the browser** — admins can add, edit and delete entries without a
+  redeploy.
 - **Icons that survive the proxy** — best-effort favicon auto-fetch, with paste-URL
   and file-upload fallbacks. All icons are cached on the volume and served from
   Toolbox's own origin so the browser never hits the Authentik login page.
 - **Health checks every 60 s** — a tool counts as *reachable* if it answers at
   all, including a 302 redirect to Authentik. Only connection/DNS failures and
   timeouts mark it unreachable.
-- **Authentik-aware access control** — everyone past the proxy can view; only
-  members of a configurable admin group can edit.
+- **Two built-in themes** — modern dark (graphite + amber) and brass (steampunk
+  warm-gold), switchable in the UI and remembered per-browser.
 - **Zero build step** — vanilla ES modules and CSS, no bundler, no external fonts.
   Works on air-gapped networks.
 
-<!-- screenshot: add/edit tool modal -->
-![Edit modal](docs/images/edit-modal.png)
+### Brass theme
+
+![Dashboard — brass theme](docs/images/dashboard-brass-admin.png)
+
+### Edit dialog
+
+| Modern | Brass |
+|--------|-------|
+| ![Edit dialog — modern](docs/images/edit-dialog-modern.png) | ![Edit dialog — brass](docs/images/edit-dialog-brass.png) |
 
 ## Quick start
 
