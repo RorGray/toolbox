@@ -285,6 +285,17 @@ body {
   color: var(--color-faint);
 }
 
+/* Grayo product mark — pinned to the far (bottom-)right of the colophon */
+.colophon .grayo {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.colophon .grayo:hover { opacity: 1; }
+.colophon .grayo img { display: block; height: 18px; width: auto; }
+
 /* ---------------- editor dialog ---------------- */
 .editor {
   width: min(560px, 92vw);

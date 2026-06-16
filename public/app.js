@@ -97,14 +97,25 @@ function renderReadout() {
 }
 
 function renderColophon() {
-  if (state.tools.length === 0) { colophon.hidden = true; return; }
+  // The hub stats only make sense with tools, but the Grayo mark always shows.
   colophon.hidden = false;
   colophon.innerHTML = '';
-  const cats = new Set(state.tools.map((t) => t.category || 'Uncategorised'));
+  if (state.tools.length > 0) {
+    const cats = new Set(state.tools.map((t) => t.category || 'Uncategorised'));
+    colophon.append(
+      el('span', {}, `${state.tools.length} tools · ${cats.size} categories`),
+      el('span', {}, 'status refreshed every 60s'),
+      el('span', {}, state.user ? `${state.user}${state.isAdmin ? ' · admin' : ' · read-only'}` : 'Toolbox')
+    );
+  }
   colophon.append(
-    el('span', {}, `${state.tools.length} tools · ${cats.size} categories`),
-    el('span', {}, 'status refreshed every 60s'),
-    el('span', {}, state.user ? `${state.user}${state.isAdmin ? ' · admin' : ' · read-only'}` : 'Toolbox')
+    el('a', {
+      class: 'grayo',
+      href: 'https://grayo.cloud',
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      title: 'A Grayo product',
+    }, el('img', { src: '/grayo-logo.svg', alt: 'Grayo', width: '74', height: '18' }))
   );
 }
 
