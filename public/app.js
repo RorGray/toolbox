@@ -111,7 +111,7 @@ function renderColophon() {
   colophon.append(
     el('a', {
       class: 'grayo',
-      href: 'https://grayo.cloud',
+      href: 'https://gograyo.com',
       target: '_blank',
       rel: 'noopener noreferrer',
       title: 'A Grayo product',
