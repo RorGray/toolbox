@@ -224,4 +224,6 @@ toolbox/
 
 ## License
 
-MIT
+[Elastic License 2.0 (ELv2)](LICENSE) — free to use and self-host, including
+within a company for internal purposes. You may not offer Toolbox as a hosted
+or managed service to third parties without explicit written permission.
