@@ -34,8 +34,18 @@ To run it bare for local poking (no auth):
 
 ```bash
 npm install
-REQUIRE_AUTH_HEADER=false ADMIN_GROUP="" DATA_FILE=./data/tools.json ICON_DIR=./icons npm start
+cp .env.example .env   # tweak DEV_USER / paths if you like
+npm run dev            # loads .env, restarts on change, listens on :3000
 # open http://localhost:3000
+```
+
+`npm run dev` reads `.env` via Node's built-in `--env-file` (no extra dep). The
+shipped `.env.example` sets `REQUIRE_AUTH_HEADER=false` and a `DEV_USER`, which
+together let the browser add and edit entries even though there's no Authentik
+proxy to inject the identity header. The one-liner still works too:
+
+```bash
+REQUIRE_AUTH_HEADER=false ADMIN_GROUP="" DEV_USER=dev DATA_FILE=./data/tools.json ICON_DIR=./icons npm start
 ```
 
 ## Putting it behind Authentik
@@ -84,6 +94,8 @@ All via environment variables (see `docker-compose.yml`):
 | `ICON_DIR`            | `/data/icons`            | Cached icon files.                                             |
 | `ADMIN_GROUP`         | `toolbox-admins`         | Group allowed to edit. Empty = any authenticated user.         |
 | `REQUIRE_AUTH_HEADER` | `true`                   | Reject requests missing the Authentik user header.            |
+| `DEV_USER`            | _(empty)_                | Local-dev fallback identity, used only when `REQUIRE_AUTH_HEADER=false`. Empty = disabled. |
+| `DEV_GROUPS`          | _(empty)_                | Groups for `DEV_USER` (only matters with a non-empty `ADMIN_GROUP`).  |
 | `AUTH_HEADER_USER`    | `x-authentik-username`   | Override if you renamed the header.                            |
 | `AUTH_HEADER_GROUPS`  | `x-authentik-groups`     | Override if you renamed the header.                            |
 | `HEALTH_INTERVAL_MS`  | `60000`                  | Background ping interval.                                      |
