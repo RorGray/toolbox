@@ -22,9 +22,20 @@ behind an Authentik forward-auth proxy.
 
 ## Quick start
 
+Pull the published image from Docker Hub and start:
+
+```bash
+docker compose up -d
+```
+
+Or build locally:
+
 ```bash
 docker compose up -d --build
 ```
+
+The image is published at **[rorgray/toolbox](https://hub.docker.com/r/rorgray/toolbox)**.
+Tags follow semver (`v1.2.3`, `1.2`, `1`) plus `latest` on every push to `master`.
 
 The app listens on port `3000` inside the container and persists everything to
 the `toolbox-data` volume (`/data/tools.json` plus `/data/icons`). It does **not**

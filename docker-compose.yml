@@ -1,6 +1,6 @@
 services:
   toolbox:
-    image: ghcr.io/rorgray/toolbox:latest
+    image: rorgray/toolbox:latest
     # To build locally instead: comment the image line above and uncomment:
     # build: .
     container_name: toolbox
