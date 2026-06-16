@@ -1,8 +1,8 @@
 services:
   toolbox:
-    build: .
-    # Or use a prebuilt image once you publish one:
-    # image: ghcr.io/you/toolbox:latest
+    image: ghcr.io/rorgray/toolbox:latest
+    # To build locally instead: comment the image line above and uncomment:
+    # build: .
     container_name: toolbox
     restart: unless-stopped
     environment:

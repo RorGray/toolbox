@@ -2,6 +2,13 @@ node_modules
 npm-debug.log
 .git
 .gitignore
+.github
 data
 *.md
 .DS_Store
+.env
+.env.example
+.claude
+skills-lock.json
+preview.html
+icons

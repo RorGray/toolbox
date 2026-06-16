@@ -15,7 +15,7 @@
       "health": {
         "status": "down",
         "httpStatus": null,
-        "checkedAt": "2026-06-16T17:10:55.497Z"
+        "checkedAt": "2026-06-16T20:57:16.058Z"
       },
       "createdAt": "2026-01-01T00:00:00.000Z"
     },
@@ -34,7 +34,7 @@
       "health": {
         "status": "down",
         "httpStatus": null,
-        "checkedAt": "2026-06-16T17:10:55.497Z"
+        "checkedAt": "2026-06-16T20:57:16.058Z"
       },
       "createdAt": "2026-01-01T00:00:00.000Z"
     }
