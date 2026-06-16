@@ -49,4 +49,45 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --rule: 1px solid var(--color-border);
+
+  /* display face — modern theme keeps the sans everywhere */
+  --font-display: var(--font-sans);
+}
+
+/* =====================================================================
+ * Brass · steampunk alternate · same anchor hue, warmer & metallic
+ * Switched at runtime via <html data-theme="brass">. Only token values
+ * change here; structural steampunk cues live in styles.css under the
+ * same selector. Discipline holds: colours stay OKLCH tokens, by name.
+ * ===================================================================== */
+:root[data-theme="brass"] {
+  /* aged leather ground, brass furniture, single warm-gold anchor */
+  --color-paper:        oklch(0.16 0.018 56);
+  --color-surface:      oklch(0.21 0.024 54);
+  --color-surface-2:    oklch(0.26 0.030 52);
+  --color-border:       oklch(0.36 0.042 70);
+  --color-border-strong:oklch(0.54 0.066 76);
+  --color-ink:          oklch(0.91 0.030 82);
+  --color-muted:        oklch(0.75 0.040 76);
+  --color-faint:        oklch(0.61 0.042 72);
+  --color-accent:       oklch(0.74 0.130 74);
+  --color-accent-hover: oklch(0.81 0.140 78);
+  --color-accent-ink:   oklch(0.18 0.038 56);
+  --color-focus:        oklch(0.80 0.140 75);
+  /* functional status hues — warmed to sit on brass without clashing */
+  --color-up:           oklch(0.78 0.135 150);
+  --color-down:         oklch(0.66 0.175 35);
+  --color-unknown:      oklch(0.58 0.022 70);
+
+  /* brass-only helpers: metal sheen + rivets (used only by brass rules) */
+  --metal-hi: oklch(0.88 0.085 86);
+  --metal-lo: oklch(0.50 0.078 64);
+  --rivet:    oklch(0.70 0.070 78);
+
+  /* Victorian signage for headings; body stays sans for readability */
+  --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+
+  /* slightly chunkier plate edges */
+  --radius-sm: 5px;
+  --radius-md: 8px;
 }

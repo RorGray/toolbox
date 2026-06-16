@@ -1,10 +1,17 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="modern">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <title>Toolbox</title>
+    <!-- apply the saved theme before first paint to avoid a flash -->
+    <script>
+      try {
+        var t = localStorage.getItem('toolbox-theme');
+        if (t === 'brass' || t === 'modern') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -27,6 +34,10 @@
         <output id="readout" class="readout" aria-live="polite"></output>
 
         <div class="bar-actions">
+          <button id="theme-toggle" class="btn ghost theme-toggle" type="button" title="Switch look">
+            <span class="gear" aria-hidden="true">◑</span>
+            <span class="theme-toggle-label">Brass</span>
+          </button>
           <button id="refresh" class="btn ghost" hidden>Re-check</button>
           <button id="add" class="btn solid" hidden>Add tool</button>
         </div>

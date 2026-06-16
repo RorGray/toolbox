@@ -3,6 +3,11 @@
  * pre-emit critique: P5 H4 E5 S4 R5 V4
  * Signature: rack-panel readout — aggregate reachability in the bar,
  *            echoed by per-card monospace telemetry. One accent, hairlines only.
+ *
+ * Themes: default modern-minimal (:root) + a switchable "Brass" steampunk
+ * skin ([data-theme="brass"]) — same hue anchor, warmed to aged brass with
+ * riveted plates, metal bevels and gauge LEDs. Brass cues are collected in
+ * the marked block near the end of this file; all colour stays token-bound.
  */
 
 @import url("/tokens.css");
@@ -291,7 +296,7 @@ body {
 }
 .editor::backdrop { background: color-mix(in srgb, var(--color-paper) 60%, transparent); backdrop-filter: blur(2px); }
 .editor form { padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); }
-.editor h2 { margin: 0; font-size: var(--text-xl); }
+.editor h2 { margin: 0; font-size: var(--text-xl); font-family: var(--font-display); }
 .field { display: flex; flex-direction: column; gap: var(--space-2xs); font-size: var(--text-sm); }
 .field > span { color: var(--color-muted); }
 .field em { color: var(--color-faint); font-style: normal; }
@@ -317,6 +322,123 @@ body {
 .editor-actions { display: flex; justify-content: flex-end; gap: var(--space-sm); margin-top: var(--space-2xs); }
 
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* =====================================================================
+ * BRASS THEME — steampunk skin. Everything here is additive and scoped to
+ * [data-theme="brass"]; the modern theme above is untouched. Shadows use
+ * --color-paper (the dark ground) and highlights use --metal-hi so no raw
+ * colour ever appears — the Hallmark token discipline still holds.
+ * ===================================================================== */
+
+/* aged-metal ground: faint top glow + a low diagonal hatch over leather */
+[data-theme="brass"] body {
+  background:
+    radial-gradient(130% 90% at 50% -20%,
+      color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 60%),
+    repeating-linear-gradient(45deg,
+      color-mix(in srgb, var(--color-surface) 45%, transparent) 0 1px,
+      transparent 1px 7px),
+    var(--color-paper);
+}
+
+/* command bar becomes a riveted brass fascia */
+[data-theme="brass"] .bar {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--color-surface) 94%, transparent),
+    color-mix(in srgb, var(--color-paper) 88%, transparent));
+  border-bottom: 2px solid var(--color-border-strong);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 22%, transparent),
+    0 2px 6px color-mix(in srgb, var(--color-paper) 60%, transparent);
+}
+
+/* brand chip reads as a brass gauge boss */
+[data-theme="brass"] .brand-mark {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, var(--metal-hi) 0 18%, transparent 40%),
+    linear-gradient(160deg, var(--color-accent-hover), var(--color-accent) 55%, var(--metal-lo));
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--metal-lo) 70%, transparent),
+    inset 0 1px 1px color-mix(in srgb, var(--metal-hi) 60%, transparent);
+}
+[data-theme="brass"] .brand-name { letter-spacing: 0.28em; }
+
+/* solid buttons are pressed brass keys; ghost buttons are dark bezels */
+[data-theme="brass"] .btn.solid {
+  background: linear-gradient(180deg,
+    var(--color-accent-hover), var(--color-accent) 55%, var(--metal-lo));
+  border: 1px solid color-mix(in srgb, var(--metal-lo) 65%, var(--color-paper));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 60%, transparent),
+    0 1px 2px color-mix(in srgb, var(--color-paper) 70%, transparent);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--metal-hi) 30%, transparent);
+}
+[data-theme="brass"] .btn.solid:hover {
+  background: linear-gradient(180deg,
+    var(--metal-hi), var(--color-accent-hover) 55%, var(--color-accent));
+}
+[data-theme="brass"] .btn.ghost,
+[data-theme="brass"] .icon-btn {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 14%, transparent);
+}
+
+/* category rules get a brass underscore */
+[data-theme="brass"] .panel-head {
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg,
+    var(--color-border-strong), transparent 80%) 1;
+}
+[data-theme="brass"] .panel-head h2 { font-family: var(--font-display); letter-spacing: 0.04em; text-transform: none; font-size: var(--text-base); }
+
+/* cards become brass plates with corner rivets and an inset sheen */
+[data-theme="brass"] .card {
+  background:
+    radial-gradient(circle at 11px 11px, var(--rivet) 0 1.4px, transparent 2.4px),
+    radial-gradient(circle at calc(100% - 11px) 11px, var(--rivet) 0 1.4px, transparent 2.4px),
+    radial-gradient(circle at 11px calc(100% - 11px), var(--rivet) 0 1.4px, transparent 2.4px),
+    radial-gradient(circle at calc(100% - 11px) calc(100% - 11px), var(--rivet) 0 1.4px, transparent 2.4px),
+    linear-gradient(160deg, var(--color-surface-2), var(--color-surface));
+  border-color: var(--color-border-strong);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 18%, transparent),
+    0 1px 3px color-mix(in srgb, var(--color-paper) 55%, transparent);
+}
+[data-theme="brass"] .card:hover {
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 30%, transparent),
+    0 6px 14px color-mix(in srgb, var(--color-paper) 65%, transparent);
+}
+
+/* monogram plate gets the same brass sheen as the buttons */
+[data-theme="brass"] .card-icon.is-mono {
+  background: linear-gradient(160deg,
+    var(--color-accent-hover), var(--color-accent) 60%, var(--metal-lo));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 50%, transparent);
+}
+
+/* status dots read as little brass-bezelled gauge lamps */
+[data-theme="brass"] .status-dot {
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--metal-lo) 55%, transparent),
+    inset 0 0 2px color-mix(in srgb, var(--color-paper) 60%, transparent);
+}
+[data-theme="brass"] .status-up .status-dot {
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--metal-lo) 55%, transparent),
+    0 0 6px color-mix(in srgb, var(--color-up) 60%, transparent);
+}
+
+/* editor dialog as a brass-framed instrument panel */
+[data-theme="brass"] .editor {
+  border: 2px solid var(--color-border-strong);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 20%, transparent);
+}
+
+/* the switcher's half-circle toggle icon, hand-tuned per theme */
+.theme-toggle { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+.theme-toggle .gear { font-size: 1em; line-height: 1; }
+[data-theme="brass"] .theme-toggle .gear { color: var(--color-accent); }
 
 /* ---------------- responsive (verified 320 / 375 / 414 / 768) ---------------- */
 @media (max-width: 640px) {

@@ -11,11 +11,11 @@
         "convert",
         "sign"
       ],
-      "iconFile": "seedpdf0000000001.png",
+      "iconFile": null,
       "health": {
         "status": "down",
         "httpStatus": null,
-        "checkedAt": "2026-06-16T10:42:23.785Z"
+        "checkedAt": "2026-06-16T13:07:21.363Z"
       },
       "createdAt": "2026-01-01T00:00:00.000Z"
     },
@@ -34,7 +34,7 @@
       "health": {
         "status": "down",
         "httpStatus": null,
-        "checkedAt": "2026-06-16T10:42:23.784Z"
+        "checkedAt": "2026-06-16T13:07:21.364Z"
       },
       "createdAt": "2026-01-01T00:00:00.000Z"
     }

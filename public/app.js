@@ -19,6 +19,24 @@ const keepModeLabel = form.querySelector('.keep-only');
 let state = { tools: [], isAdmin: false, user: null, filter: '' };
 let editingId = null;
 
+// ---------- theme (modern ⇄ brass) ----------
+const themeToggle = document.getElementById('theme-toggle');
+const themeLabel = themeToggle.querySelector('.theme-toggle-label');
+function currentTheme() {
+  return document.documentElement.dataset.theme === 'brass' ? 'brass' : 'modern';
+}
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  try { localStorage.setItem('toolbox-theme', theme); } catch { /* private mode */ }
+  // the button advertises the look you'd switch *to*
+  themeLabel.textContent = theme === 'brass' ? 'Modern' : 'Brass';
+  themeToggle.setAttribute('aria-label', `Switch to ${themeLabel.textContent} look`);
+}
+applyTheme(currentTheme()); // sync label with whatever the head script set
+themeToggle.addEventListener('click', () =>
+  applyTheme(currentTheme() === 'brass' ? 'modern' : 'brass')
+);
+
 // ---------- data ----------
 async function api(path, options) {
   const res = await fetch(path, { headers: { 'Content-Type': 'application/json' }, ...options });
@@ -73,7 +91,7 @@ function renderReadout() {
   readout.append(
     el('span', { class: 'ok' }, `${up} reachable`),
     document.createTextNode(' · '),
-    down > 0 ? el('span', { class: 'bad' }, `${down} down`) : el('span', {}, `${down} down`),
+    down > 0 ? el('span', { class: 'bad' }, `${down} unreachable`) : el('span', {}, `${down} unreachable`),
     document.createTextNode(` · ${total} total`)
   );
 }
@@ -98,6 +116,7 @@ function render() {
     if (!q) return true;
     return (
       t.name.toLowerCase().includes(q) ||
+      (t.url || '').toLowerCase().includes(q) ||
       (t.description || '').toLowerCase().includes(q) ||
       (t.category || '').toLowerCase().includes(q) ||
       (t.tags || []).some((tag) => tag.toLowerCase().includes(q))
