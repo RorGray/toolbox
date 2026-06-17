@@ -19,6 +19,7 @@
   /* functional status hues — signal, not decoration */
   --color-up:           oklch(0.80 0.150 155);
   --color-down:         oklch(0.68 0.180 35);
+  --color-warn:         oklch(0.80 0.150 85);
   --color-unknown:      oklch(0.60 0.010 78);
 
   /* ---- type ---- */
@@ -77,6 +78,7 @@
   /* functional status hues — warmed to sit on brass without clashing */
   --color-up:           oklch(0.78 0.135 150);
   --color-down:         oklch(0.66 0.175 35);
+  --color-warn:         oklch(0.78 0.135 85);
   --color-unknown:      oklch(0.58 0.022 70);
 
   /* brass-only helpers: metal sheen + rivets (used only by brass rules) */

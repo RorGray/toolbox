@@ -86,10 +86,11 @@ function renderReadout() {
   const total = state.tools.length;
   const up = state.tools.filter((t) => t.health?.status === 'up').length;
   const down = state.tools.filter((t) => t.health?.status === 'down').length;
+  const noted = state.tools.filter((t) => t.health?.status === 'up' && t.health?.reason).length;
   readout.innerHTML = '';
   if (total === 0) return;
   readout.append(
-    el('span', { class: 'ok' }, `${up} reachable`),
+    el('span', { class: 'ok' }, `${up} reachable${noted > 0 ? ` (${noted} unconfirmed)` : ''}`),
     document.createTextNode(' · '),
     down > 0 ? el('span', { class: 'bad' }, `${down} unreachable`) : el('span', {}, `${down} unreachable`),
     document.createTextNode(` · ${total} total`)
@@ -216,13 +217,29 @@ function card(t) {
   }
 
   const label = status === 'up' ? 'reachable' : status === 'down' ? 'unreachable' : 'unchecked';
-  node.append(
-    el('div', { class: 'card-foot' },
-      el('span', { class: 'status-dot' }),
-      el('span', { class: 'status-label' }, label),
-      el('span', { class: 'checked' }, relTime(t.health?.checkedAt))
-    )
-  );
+  const footChildren = [
+    el('span', { class: 'status-dot' }),
+    el('span', { class: 'status-label' }, label),
+  ];
+  if (status === 'up' && t.health?.reason) {
+    const tipId = `tip-${t.id}`;
+    footChildren.push(
+      el('span', { class: 'status-note' },
+        el('button', {
+          type: 'button',
+          class: 'status-note-trigger',
+          'aria-describedby': tipId,
+          onclick: (e) => {
+            e.preventDefault();
+            e.currentTarget.parentElement.classList.toggle('is-open');
+          },
+        }, 'i'),
+        el('span', { class: 'status-tip', role: 'tooltip', id: tipId }, t.health.reason)
+      )
+    );
+  }
+  footChildren.push(el('span', { class: 'checked' }, relTime(t.health?.checkedAt)));
+  node.append(el('div', { class: 'card-foot' }, ...footChildren));
 
   if (state.isAdmin) {
     node.append(
@@ -348,6 +365,19 @@ let searchTimer;
 search.addEventListener('input', () => {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(() => { state.filter = search.value.trim(); render(); }, 120);
+});
+
+// status-note tooltip: tap-toggle dismiss on outside click / Escape (WCAG 1.4.13 dismissible)
+document.addEventListener('click', (e) => {
+  const target = e.target.closest('.status-note');
+  document.querySelectorAll('.status-note.is-open').forEach((n) => {
+    if (n !== target) n.classList.remove('is-open');
+  });
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  document.querySelectorAll('.status-note.is-open').forEach((n) => n.classList.remove('is-open'));
+  if (document.activeElement?.classList.contains('status-note-trigger')) document.activeElement.blur();
 });
 
 // keep status dots current without a reload

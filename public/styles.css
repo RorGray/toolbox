@@ -241,6 +241,87 @@ body {
 .status-down .status-dot { background: var(--color-down); }
 .status-up .status-label { color: var(--color-up); }
 .status-down .status-label { color: var(--color-down); }
+/* status note — hover/focus disclosure explaining an unconfirmed "reachable" read */
+.status-note { position: relative; display: inline-flex; }
+.status-note-trigger {
+  position: relative; /* anchors the hit-target overlay below */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-warn);
+  background: transparent;
+  color: var(--color-warn);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1;
+  cursor: help;
+  transition: background var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+}
+.status-note-trigger::before { content: ''; position: absolute; inset: -10px; } /* 44px touch target */
+.status-note-trigger:hover,
+.status-note.is-open .status-note-trigger {
+  background: color-mix(in srgb, var(--color-warn) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-warn) 20%, transparent);
+}
+.status-note-trigger:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+.status-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 20;
+  width: max-content;
+  max-width: 220px;
+  transform: translate(-50%, 4px);
+  background: var(--color-surface-2);
+  border: 1px solid color-mix(in srgb, var(--color-warn) 45%, var(--color-border));
+  border-radius: var(--radius-sm);
+  padding: var(--space-2xs) var(--space-sm);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-mid) var(--ease-out), transform var(--dur-mid) var(--ease-out);
+}
+.status-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--color-surface-2);
+  border-right: 1px solid color-mix(in srgb, var(--color-warn) 45%, var(--color-border));
+  border-bottom: 1px solid color-mix(in srgb, var(--color-warn) 45%, var(--color-border));
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+/* hover: 800ms delay so a passing cursor doesn't flash it open (WCAG 1.4.13: hoverable — the panel is a child of .status-note, so moving onto it keeps it open) */
+.status-note:hover .status-tip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition-delay: 800ms;
+}
+/* keyboard focus and tap-toggle: instant, no flash-prevention delay needed for a deliberate action */
+.status-note-trigger:focus-visible ~ .status-tip,
+.status-note.is-open .status-tip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition-delay: 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-tip { transform: translate(-50%, 0) !important; transition: opacity 120ms linear !important; }
+}
 .card-foot .checked { margin-left: auto; }
 
 /* admin controls, revealed on hover/focus */
